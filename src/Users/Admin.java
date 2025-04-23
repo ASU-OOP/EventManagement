@@ -8,13 +8,13 @@ import java.util.List;
 public class Admin extends User {
 
     String role;
-    Time workingHours;
+    List<Time> workingHours;
 
     public String getRole() {
         return role;
     }
 
-    public Time getWorkingHours() {
+    public List<Time> getWorkingHours() {
         return workingHours;
     }
 
@@ -22,17 +22,24 @@ public class Admin extends User {
         this.role = role;
     }
 
-    public void setWorkingHours(Time workingHours) {
+    void setWorkingHours(List<Time> workingHours) {
         this.workingHours = workingHours;
     }
 
-     Admin(String username, String password, Date dateOfBirth, String role, Time workingHours) {
+    public void AddWorkingHour(Time workingHour) {
+        workingHours.add(workingHour);
+    }
+
+    public void RemoveWorkingHour(Time workingHour) {
+        workingHours.remove(workingHour);
+    }
+
+     public Admin(String username, String password, Date dateOfBirth, String role, List<Time> workingHours) {
         super(username, password, dateOfBirth);
 
-         setUserType(UserType.ADMIN);
+        setUserType(UserType.ADMIN);
 
-
-         setRole(role);
+        setRole(role);
         setWorkingHours(workingHours);
     }
 }

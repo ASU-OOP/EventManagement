@@ -48,7 +48,7 @@ public class Room {
         events.remove(event);
     }
 
-    Room(String name, List<Time> availableTimes, List<Event> events) {
+    public Room(String name, List<Time> availableTimes, List<Event> events) {
         setName(name);
         setAvailableTimes(availableTimes);
         setEvents(events);

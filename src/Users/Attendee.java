@@ -33,7 +33,7 @@ public class Attendee extends WalletUser {
         this.interests = interests;
     }
 
-     Attendee(String username, String password, Date dateOfBirth, Double balance, String address, Gender gender, List<String> interests) {
+     public Attendee(String username, String password, Date dateOfBirth, Double balance, String address, Gender gender, List<String> interests) {
         super(username, password, dateOfBirth, balance);
 
         setUserType(UserType.ATTENDEE);
