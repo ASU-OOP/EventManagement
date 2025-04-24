@@ -3,6 +3,7 @@ package MiscObjects;
 import Users.Attendee;
 import Users.Organizer;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class Event {
     String name;
     Date date;
     Double price = 100.0;
-    List<Attendee> attendees;
+    List<Attendee> attendees = new ArrayList<>();
     Organizer organizer;
     Room room;
     Category category;

@@ -1,5 +1,6 @@
 package StaticResources;
 
+import MiscObjects.Event;
 import MiscObjects.Room;
 
 import java.sql.Time;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class RoomDatabase {
 
-    private List<Room> rooms = new ArrayList<>();
+    private static final List<Room> rooms = new ArrayList<>();
 
     public List<Room> getRooms() {
         return rooms;
@@ -29,7 +30,7 @@ public class RoomDatabase {
         availableTime = new Time(66600000);
         availableTimes.add(availableTime);
 
-        Room room = new Room("room 1", availableTimes, null);
+        Room room = new Room("room 1", availableTimes, new ArrayList<Event>());
 
         addRoom(room);
 
@@ -37,7 +38,7 @@ public class RoomDatabase {
         availableTimes.add(availableTime);
         availableTime = new Time(52200000);
         availableTimes.add(availableTime);
-        room = new Room("room 2", availableTimes, null);
+        room = new Room("room 2", availableTimes, new ArrayList<Event>());
 
         addRoom(room);
 
@@ -45,7 +46,7 @@ public class RoomDatabase {
         availableTimes.add(availableTime);
         availableTime = new Time(37800000);
         availableTimes.add(availableTime);
-        room = new Room("room 3", availableTimes, null);
+        room = new Room("room 3", availableTimes, new ArrayList<Event>());
 
         addRoom(room);
 

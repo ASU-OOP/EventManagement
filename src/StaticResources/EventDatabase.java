@@ -7,7 +7,7 @@ import java.util.*;
 
 public class EventDatabase {
 
-    private List<Event> events = new ArrayList<>();
+    private static final List<Event> events = new ArrayList<>();
 
     public List<Event> getEvents() {
         return events;

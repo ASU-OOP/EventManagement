@@ -6,11 +6,15 @@ import java.sql.Time;
 import java.util.*;
 
 public class AdminsDatabase {
-    private List<Admin> admins = new ArrayList<>();
-    private List<Time> workingHours = new ArrayList<>();
+    private static final List<Admin> admins = new ArrayList<>();
+    private static final List<Time> workingHours = new ArrayList<>();
 
     private void addWorkingHour(Time workingHour) {
         workingHours.add(workingHour);
+    }
+
+    public List<Admin> getAdmins() {
+        return admins;
     }
 
     public void addAdmin(Admin admin) {

@@ -1,12 +1,13 @@
 package MiscObjects;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
     String name;
-    List<Time> availableTimes;
-    List<Event> events;
+    List<Time> availableTimes = new ArrayList<>();
+    List<Event> events = new ArrayList<>();
 
     public String getRoomName() {
         return name;

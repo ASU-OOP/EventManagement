@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDatabase {
-    private List<Category> categories = new ArrayList<>();
+    private static final List<Category> categories = new ArrayList<>();
 
     public List<Category> getCategories() {
         return categories;

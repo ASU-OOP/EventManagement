@@ -3,9 +3,9 @@ package Users;
 import java.util.Date;
 
 // This class is the template for all other User classes
-public abstract class User {
-    String username = "";
-    String password = "";
+public abstract class User implements Comparable<User>{
+    public String username = "";
+    public String password = "";
     Date dateOfBirth;
     boolean active = false;
     UserType userType;
@@ -63,4 +63,11 @@ public abstract class User {
         setActiveStatus(true);
     }
 
+    @Override
+    public int compareTo(User user) {
+        if (getUsername() == null || user.getUsername() == null) {
+            return 0;
+        }
+        return getUsername().compareTo(user.getUsername());
+    }
 }

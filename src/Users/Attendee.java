@@ -7,7 +7,7 @@ import java.util.List;
 public class Attendee extends WalletUser {
     String address = "";
     Gender gender;
-    List<String> interests = new ArrayList<>();
+    String interests = "";
 
     public String getAddress() {
         return address;
@@ -17,7 +17,7 @@ public class Attendee extends WalletUser {
         return gender;
     }
 
-    public List<String> getInterests() {
+    public String getInterests() {
         return interests;
     }
 
@@ -29,11 +29,11 @@ public class Attendee extends WalletUser {
         this.gender = gender;
     }
 
-    public void setInterests(List<String> interests) {
+    public void setInterests(String interests) {
         this.interests = interests;
     }
 
-     public Attendee(String username, String password, Date dateOfBirth, Double balance, String address, Gender gender, List<String> interests) {
+     public Attendee(String username, String password, Date dateOfBirth, Double balance, String address, Gender gender, String interests) {
         super(username, password, dateOfBirth, balance);
 
         setUserType(UserType.ATTENDEE);

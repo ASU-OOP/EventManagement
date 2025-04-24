@@ -6,7 +6,7 @@ import java.util.*;
 
 public class OrganizersDatabase {
 
-    List<Organizer> organizers = new ArrayList<>();
+    public static final List<Organizer> organizers = new ArrayList<>();
 
     public List<Organizer> getOrganizers() {
         return organizers;
