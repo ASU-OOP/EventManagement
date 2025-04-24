@@ -19,6 +19,6 @@ public class WalletUser extends User {
     protected WalletUser(String username, String password, Date dateOfBirth, Double balance) {
         super(username, password, dateOfBirth);
 
-        Wallet wallet = new Wallet(this, balance);
+        this.wallet = new Wallet(this, balance);
     }
 }

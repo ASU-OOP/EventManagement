@@ -1,6 +1,5 @@
-import StaticResources.AdminsDatabase;
-import StaticResources.AttendeesDatabase;
-import StaticResources.OrganizersDatabase;
+import Dashboards.Dashboard;
+import StaticResources.*;
 import Users.*;
 
 import java.util.Objects;
@@ -8,22 +7,42 @@ import java.util.Scanner;
 
 public class Login {
 
-    public void loginScreen(Scanner scanner, AdminsDatabase adminsDatabase, AttendeesDatabase attendeesDatabase, OrganizersDatabase organizersDatabase) {
+    public void loginScreen(Scanner scanner,
+                            AdminsDatabase adminsDatabase,
+                            AttendeesDatabase attendeesDatabase,
+                            OrganizersDatabase organizersDatabase,
+                            CategoryDatabase categoryDatabase,
+                            EventDatabase eventDatabase,
+                            RoomDatabase roomDatabase) {
+        Dashboard dashboard = new Dashboard();
         // Clean scanner because it causes issues sometimes when the last thing we read was an int and not a line lol
         scanner.nextLine();
 
-        User user = askForUsername(scanner, adminsDatabase, attendeesDatabase, organizersDatabase);
+        User user = askForUsername(scanner,
+                adminsDatabase,
+                attendeesDatabase,
+                organizersDatabase);
         Boolean authenticated = askForPassword(scanner, user);
 
         if (authenticated) {
             System.out.println("Logging in");
+            dashboard.printDashboard(user,
+                    adminsDatabase,
+                    attendeesDatabase,
+                    organizersDatabase,
+                    categoryDatabase,
+                    roomDatabase,
+                    eventDatabase);
         }
         else {
             System.out.println("Incorrect password");
         }
     }
 
-    private User askForUsername(Scanner scanner, AdminsDatabase adminsDatabase, AttendeesDatabase attendeesDatabase, OrganizersDatabase organizersDatabase) {
+    private User askForUsername(Scanner scanner,
+                                AdminsDatabase adminsDatabase,
+                                AttendeesDatabase attendeesDatabase,
+                                OrganizersDatabase organizersDatabase) {
 
         User user = null;
         System.out.print("Please enter your username: ");
@@ -56,7 +75,10 @@ public class Login {
 
         if (!userExists) {
             System.out.println("User doesn't exist, please try again!");
-            return askForUsername(scanner, adminsDatabase, attendeesDatabase, organizersDatabase);
+            return askForUsername(scanner,
+                    adminsDatabase,
+                    attendeesDatabase,
+                    organizersDatabase);
         }
 
         return user;

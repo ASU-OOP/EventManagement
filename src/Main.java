@@ -48,11 +48,11 @@ public class Main {
     }
     private void login(Scanner scanner) {
         Login login = new Login();
-        login.loginScreen(scanner, adminsDB, attendeesDB, organizersDB);
+        login.loginScreen(scanner, adminsDB, attendeesDB, organizersDB, categoryDB, eventDB, roomDB);
     }
 
     private void register(Scanner scanner) {
         Register register = new Register();
-        register.registerScreen(scanner, usersDB, adminsDB, attendeesDB, organizersDB);
+        register.registerScreen(scanner, adminsDB, attendeesDB, organizersDB);
     }
 }

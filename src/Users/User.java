@@ -10,43 +10,43 @@ public abstract class User implements Comparable<User>{
     boolean active = false;
     UserType userType;
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    Date getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    Boolean getActiveStatus() {
+    public Boolean getActiveStatus() {
         return active;
     }
 
-    UserType getUserType() {
+    public UserType getUserType() {
         return userType;
     }
 
-    void setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    void setActiveStatus(Boolean active) {
+    public void setActiveStatus(Boolean active) {
         this.active = active;
     }
 
-    void setUserType(UserType userType) {
+    public void setUserType(UserType userType) {
         this.userType = userType;
     }
 

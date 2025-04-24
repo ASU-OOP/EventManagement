@@ -1,7 +1,6 @@
 import StaticResources.AdminsDatabase;
 import StaticResources.AttendeesDatabase;
 import StaticResources.OrganizersDatabase;
-import StaticResources.UsersDatabase;
 import Users.*;
 
 import java.sql.Time;
@@ -10,14 +9,20 @@ import java.util.*;
 
 public class Register {
 
-    public void registerScreen(Scanner scanner, UsersDatabase usersDatabase, AdminsDatabase adminsDatabase, AttendeesDatabase attendeesDatabase, OrganizersDatabase organizersDatabase) {
+    public void registerScreen(Scanner scanner,
+                               AdminsDatabase adminsDatabase,
+                               AttendeesDatabase attendeesDatabase,
+                               OrganizersDatabase organizersDatabase) {
         boolean userCreated = false;
-        UserType userType = askForUserType(scanner, adminsDatabase, attendeesDatabase, organizersDatabase);
+        UserType userType = askForUserType(scanner);
 
         // Clean scanner because it causes issues sometimes when the last thing we read was not a line lol
         scanner.nextLine();
 
-        String username = askForUsername(scanner, adminsDatabase, attendeesDatabase, organizersDatabase);
+        String username = askForUsername(scanner,
+                adminsDatabase,
+                attendeesDatabase,
+                organizersDatabase);
         String password = askForPassword(scanner);
         Date dateOfBirth = askForDateOfBirth(scanner);
         Double balance = 0.0;
@@ -46,7 +51,11 @@ public class Register {
                 scanner.nextLine();
 
                 interests = askForInterests(scanner);
-                Attendee attendee = new Attendee(username, password, dateOfBirth, balance, address, gender, interests);
+                Attendee attendee = new Attendee(username,
+                        password, dateOfBirth,
+                        balance, address,
+                        gender, interests);
+
                 attendeesDatabase.addAttendee(attendee);
                 userCreated = true;
                 break;
@@ -68,7 +77,7 @@ public class Register {
         }
     }
 
-    private UserType askForUserType(Scanner scanner, AdminsDatabase adminsDatabase, AttendeesDatabase attendeesDatabase, OrganizersDatabase organizersDatabase) {
+    private UserType askForUserType(Scanner scanner) {
         System.out.println("Please select your User Type: ");
         System.out.println("1: Admin");
         System.out.println("2: Attendee");
@@ -83,11 +92,14 @@ public class Register {
             return UserType.ORGANIZER;
         } else {
             System.out.println("Invalid Selection, Please try again");
-            return askForUserType(scanner, adminsDatabase, attendeesDatabase, organizersDatabase);
+            return askForUserType(scanner);
         }
     }
 
-    private String askForUsername(Scanner scanner, AdminsDatabase adminsDatabase, AttendeesDatabase attendeesDatabase, OrganizersDatabase organizersDatabase) {
+    private String askForUsername(Scanner scanner,
+                                  AdminsDatabase adminsDatabase,
+                                  AttendeesDatabase attendeesDatabase,
+                                  OrganizersDatabase organizersDatabase) {
 
         System.out.print("Please enter your username: ");
         String username = scanner.nextLine();
