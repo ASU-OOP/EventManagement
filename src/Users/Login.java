@@ -1,6 +1,7 @@
+package Users;
+
 import Dashboards.Dashboard;
 import StaticResources.*;
-import Users.*;
 
 import java.util.Objects;
 import java.util.Scanner;

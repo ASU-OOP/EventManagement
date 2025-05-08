@@ -1,11 +1,13 @@
+package Users;
+
 import StaticResources.AdminsDatabase;
 import StaticResources.AttendeesDatabase;
 import StaticResources.OrganizersDatabase;
-import Users.*;
 
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.*;
+import UI.EventManagementApplication;
 
 public class Register {
 
@@ -73,7 +75,7 @@ public class Register {
 
         if (userCreated) {
             System.out.println("User created successfully. Please login again.");
-            Main.welcome(scanner);
+            EventManagementApplication.welcome(scanner);
         }
     }
 
