@@ -1,6 +1,6 @@
 package StaticResources;
 
-import Users.User;
+import Models.Users.User;
 
 import java.util.ArrayList;
 import java.util.Collections;

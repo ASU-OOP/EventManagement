@@ -1,6 +1,6 @@
 package StaticResources;
 
-import MiscObjects.Category;
+import Models.MiscObjects.Category;
 
 import java.util.ArrayList;
 import java.util.List;

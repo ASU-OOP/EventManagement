@@ -1,6 +1,6 @@
 package StaticResources;
 
-import Users.Admin;
+import Models.Users.Admin;
 
 import java.sql.Time;
 import java.util.*;

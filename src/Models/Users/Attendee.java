@@ -1,8 +1,6 @@
-package Users;
+package Models.Users;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Attendee extends WalletUser {
     String address = "";

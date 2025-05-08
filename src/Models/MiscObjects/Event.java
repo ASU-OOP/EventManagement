@@ -1,7 +1,7 @@
-package MiscObjects;
+package Models.MiscObjects;
 
-import Users.Attendee;
-import Users.Organizer;
+import Models.Users.Attendee;
+import Models.Users.Organizer;
 
 import java.util.ArrayList;
 import java.util.Date;

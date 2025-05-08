@@ -1,6 +1,6 @@
-package Users;
+package Models.Users;
 
-import MiscObjects.Wallet;
+import Models.MiscObjects.Wallet;
 
 import java.util.Date;
 

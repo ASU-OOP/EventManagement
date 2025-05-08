@@ -1,4 +1,4 @@
-package Users;
+package Views;
 
 import StaticResources.AdminsDatabase;
 import StaticResources.AttendeesDatabase;
@@ -7,9 +7,10 @@ import StaticResources.OrganizersDatabase;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.*;
-import UI.EventManagementApplication;
 
-public class Register {
+import Models.Users.*;
+
+public class RegisterView {
 
     public void registerScreen(Scanner scanner,
                                AdminsDatabase adminsDatabase,
@@ -75,7 +76,7 @@ public class Register {
 
         if (userCreated) {
             System.out.println("User created successfully. Please login again.");
-            EventManagementApplication.welcome(scanner);
+            MainView.welcome();
         }
     }
 

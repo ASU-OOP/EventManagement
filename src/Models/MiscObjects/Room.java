@@ -1,4 +1,4 @@
-package MiscObjects;
+package Models.MiscObjects;
 
 import java.sql.Time;
 import java.util.ArrayList;

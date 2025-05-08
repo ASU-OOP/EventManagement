@@ -1,6 +1,6 @@
 package StaticResources;
 
-import Users.Organizer;
+import Models.Users.Organizer;
 
 import java.util.*;
 

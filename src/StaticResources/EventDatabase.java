@@ -1,7 +1,7 @@
 package StaticResources;
 
-import MiscObjects.Event;
-import MiscObjects.Room;
+import Models.MiscObjects.Event;
+import Models.MiscObjects.Room;
 
 import java.util.*;
 

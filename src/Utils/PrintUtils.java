@@ -1,8 +1,8 @@
 package Utils;
 
-import MiscObjects.Event;
-import MiscObjects.Room;
-import Users.*;
+import Models.MiscObjects.Event;
+import Models.MiscObjects.Room;
+import Models.Users.*;
 
 import java.sql.Time;
 

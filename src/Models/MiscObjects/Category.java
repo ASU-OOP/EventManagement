@@ -1,4 +1,4 @@
-package MiscObjects;
+package Models.MiscObjects;
 
 public class Category {
     String name;

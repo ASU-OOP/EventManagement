@@ -1,7 +1,7 @@
 package StaticResources;
 
-import Users.Attendee;
-import Users.Gender;
+import Models.Users.Attendee;
+import Models.Users.Gender;
 
 import java.util.*;
 

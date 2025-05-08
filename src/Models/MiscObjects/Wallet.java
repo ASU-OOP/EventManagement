@@ -1,6 +1,6 @@
-package MiscObjects;
+package Models.MiscObjects;
 
-import Users.WalletUser;
+import Models.Users.WalletUser;
 
 public class Wallet {
     WalletUser owner;

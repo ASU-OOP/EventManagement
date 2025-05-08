@@ -1,16 +1,18 @@
-package Dashboards;
+package Views;
 
+import Controllers.DashboardController;
 import StaticResources.*;
-import Users.Admin;
-import Users.Attendee;
-import Users.Organizer;
-import Users.User;
+import Models.Users.Admin;
+import Models.Users.Attendee;
+import Models.Users.Organizer;
+import Models.Users.User;
 
 import java.util.Scanner;
 
-public class Dashboard {
+public class DashboardView {
 
-    CommonDashboard commonDashboard = new CommonDashboard();
+    DashboardController dashboardController = new DashboardController();
+    Scanner scanner = new Scanner(System.in);
 
     public void printDashboard(User user, AdminsDatabase adminsDatabase,
                                AttendeesDatabase attendeesDatabase,
@@ -56,9 +58,6 @@ public class Dashboard {
                                      CategoryDatabase categoryDatabase,
                                      RoomDatabase roomDatabase,
                                      EventDatabase eventDatabase) {
-        AdminDashboard adminDashboard = new AdminDashboard();
-        Scanner scanner = new Scanner(System.in);
-
         System.out.println("Please select an action:");
         System.out.println("1: Show Attendees");
         System.out.println("2: Show Rooms");
@@ -72,27 +71,27 @@ public class Dashboard {
         switch (selection) {
             case 1:
                 // Show Attendees
-                adminDashboard.showAttendees(attendeesDatabase);
+                dashboardController.showAttendees(attendeesDatabase);
                 break;
             case 2:
                 // Show Rooms
-                adminDashboard.showRooms(roomDatabase);
+                dashboardController.showRooms(roomDatabase);
                 break;
             case 3:
                 // Show Events
-                adminDashboard.showEvents(eventDatabase);
+                dashboardController.showEvents(eventDatabase);
                 break;
             case 4:
                 // Update Username
-                commonDashboard.changeUsername(admin, adminsDatabase, attendeesDatabase, organizersDatabase);
+                dashboardController.changeUsername(admin, adminsDatabase, attendeesDatabase, organizersDatabase);
                 break;
             case 5:
                 // Update Password
-                commonDashboard.changePassword(admin);
+                dashboardController.changePassword(admin);
                 break;
             case 6:
                 // Delete my User
-                commonDashboard.deleteUserMenu(admin, adminsDatabase, attendeesDatabase, organizersDatabase);
+                dashboardController.deleteUserMenu(admin, adminsDatabase, attendeesDatabase, organizersDatabase);
                 break;
             default:
                 System.out.println("Invalid selection, please try again");
@@ -112,9 +111,6 @@ public class Dashboard {
                                      CategoryDatabase categoryDatabase,
                                      RoomDatabase roomDatabase,
                                      EventDatabase eventDatabase) {
-        AttendeeDashboard attendeeDashboard = new AttendeeDashboard();
-        Scanner scanner = new Scanner(System.in);
-
         System.out.println("Please select an action:");
         System.out.println("1: View Attending Events");
         System.out.println("2: View Attend-able Events");
@@ -127,23 +123,23 @@ public class Dashboard {
         switch (selection) {
             case 1:
                 // View Attending Events
-                attendeeDashboard.showAttendingEvents(attendee, eventDatabase);
+                dashboardController.showAttendingEvents(attendee, eventDatabase);
                 break;
             case 2:
                 // View Attendable Events
-                attendeeDashboard.showAttendableEvents(attendee, eventDatabase);
+                dashboardController.showAttendableEvents(attendee, eventDatabase);
                 break;
             case 3:
                 // Update username
-                commonDashboard.changeUsername(attendee, adminsDatabase, attendeesDatabase, organizersDatabase);
+                dashboardController.changeUsername(attendee, adminsDatabase, attendeesDatabase, organizersDatabase);
                 break;
             case 4:
                 // Update password
-                commonDashboard.changePassword(attendee);
+                dashboardController.changePassword(attendee);
                 break;
             case 5:
                 // Delete User
-                commonDashboard.deleteUserMenu(attendee, adminsDatabase, attendeesDatabase, organizersDatabase);
+                dashboardController.deleteUserMenu(attendee, adminsDatabase, attendeesDatabase, organizersDatabase);
                 break;
             default:
                 System.out.println("Invalid selection, please try again");
@@ -163,8 +159,6 @@ public class Dashboard {
                                      CategoryDatabase categoryDatabase,
                                      RoomDatabase roomDatabase,
                                      EventDatabase eventDatabase) {
-        Scanner scanner = new Scanner(System.in);
-
         System.out.println("Please select an action:");
         System.out.println("1: View Available Rooms");
         System.out.println("2: View Yours Events");
@@ -183,15 +177,15 @@ public class Dashboard {
                 break;
             case 3:
                 // Update username
-                commonDashboard.changeUsername(organizer, adminsDatabase, attendeesDatabase, organizersDatabase);
+                dashboardController.changeUsername(organizer, adminsDatabase, attendeesDatabase, organizersDatabase);
                 break;
             case 4:
                 // Update password
-                commonDashboard.changePassword(organizer);
+                dashboardController.changePassword(organizer);
                 break;
             case 5:
                 // Delete User
-                commonDashboard.deleteUserMenu(organizer, adminsDatabase, attendeesDatabase, organizersDatabase);
+                dashboardController.deleteUserMenu(organizer, adminsDatabase, attendeesDatabase, organizersDatabase);
                 break;
             default:
                 System.out.println("Invalid selection, please try again");

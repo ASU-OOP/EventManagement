@@ -1,4 +1,4 @@
-package Users;
+package Models.Users;
 
 public enum UserType {
     ADMIN,

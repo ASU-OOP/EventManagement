@@ -1,12 +1,15 @@
-package Users;
+package Views;
 
-import Dashboards.Dashboard;
+import Models.Users.Admin;
+import Models.Users.Attendee;
+import Models.Users.Organizer;
+import Models.Users.User;
 import StaticResources.*;
 
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Login {
+public class LoginView {
 
     public void loginScreen(Scanner scanner,
                             AdminsDatabase adminsDatabase,
@@ -15,7 +18,7 @@ public class Login {
                             CategoryDatabase categoryDatabase,
                             EventDatabase eventDatabase,
                             RoomDatabase roomDatabase) {
-        Dashboard dashboard = new Dashboard();
+        DashboardView dashboardView = new DashboardView();
         // Clean scanner because it causes issues sometimes when the last thing we read was an int and not a line lol
         scanner.nextLine();
 
@@ -27,7 +30,7 @@ public class Login {
 
         if (authenticated) {
             System.out.println("Logging in");
-            dashboard.printDashboard(user,
+            dashboardView.printDashboard(user,
                     adminsDatabase,
                     attendeesDatabase,
                     organizersDatabase,
