@@ -3,6 +3,8 @@ package StaticResources;
 import Models.MiscObjects.Event;
 import Models.MiscObjects.Room;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 public class EventDatabase {
@@ -22,28 +24,28 @@ public class EventDatabase {
     }
 
     public EventDatabase(OrganizersDatabase organizersDatabase, RoomDatabase roomDatabase, CategoryDatabase categoryDatabase) {
-        Date date = new GregorianCalendar(124, Calendar.SEPTEMBER, 10).getTime();
+        LocalDate date = LocalDate.ofInstant(new GregorianCalendar(124, Calendar.SEPTEMBER, 10).getTime().toInstant(), ZoneId.systemDefault());
         Room room = roomDatabase.getRooms().getFirst();
         Event event = new Event("First Event", date, organizersDatabase.getOrganizers().getFirst(), room, categoryDatabase.getCategories().getFirst());
 
         room.addEvent(event);
         addEvent(event);
 
-        date = new GregorianCalendar(125, Calendar.FEBRUARY, 6).getTime();
+        date = LocalDate.ofInstant(new GregorianCalendar(125, Calendar.FEBRUARY, 6).getTime().toInstant(), ZoneId.systemDefault());
         event = new Event("Second Event", date, organizersDatabase.getOrganizers().get(1), room, categoryDatabase.getCategories().get(1));
         room.addEvent(event);
 
         room.addEvent(event);
         addEvent(event);
 
-        date = new GregorianCalendar(126, Calendar.MARCH, 13).getTime();
+        date = LocalDate.ofInstant(new GregorianCalendar(126, Calendar.MARCH, 13).getTime().toInstant(), ZoneId.systemDefault());
         room = roomDatabase.getRooms().get(1);
         event = new Event("3rd Event", date, organizersDatabase.getOrganizers().getFirst(), room, categoryDatabase.getCategories().get(2));
 
         room.addEvent(event);
         addEvent(event);
 
-        date = new GregorianCalendar(127, Calendar.JULY, 18).getTime();
+        date = LocalDate.ofInstant(new GregorianCalendar(127, Calendar.JULY, 18).getTime().toInstant(), ZoneId.systemDefault());
         room = roomDatabase.getRooms().get(1);
         event = new Event("Fourth Event", date, organizersDatabase.getOrganizers().get(1), room, categoryDatabase.getCategories().getLast());
 

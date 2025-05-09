@@ -14,6 +14,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -232,7 +233,7 @@ public class DashboardController {
         Button attendeeDashboardButton = new Button("Back to Dashboard");
 
         ObservableList<Event> data =
-                FXCollections.observableArrayList(getEvents(attendee, eventDatabase.getEvents()));
+                FXCollections.observableArrayList(getAttendingEvents(attendee, eventDatabase.getEvents()));
 
         TableView<Event> eventTable = new TableView<Event>();
 
@@ -452,6 +453,67 @@ public class DashboardController {
         MainView.mainMenu(stage);
     }
 
+    public void viewAvailableRooms(DashboardView dashboardView, Organizer organizer, Stage stage) {
+        List<Room> availableRooms = new ArrayList<>();
+        for (Room room : roomDatabase.getRooms()) {
+            if (!room.getAvailableTimes().isEmpty()) {
+                availableRooms.add(room);
+            }
+        }
+
+        stage.setTitle("Event List");
+
+        // Create a label to display the login result.
+        Label resultLabel = new Label();
+
+        // Create labels for username and password fields.
+        Button createEventButton = new Button("Create Event");
+        Button organizerDashboardButton = new Button("Back to Dashboard");
+
+        ObservableList<Room> data =
+                FXCollections.observableArrayList(availableRooms);
+
+        TableView<Room> roomTable = new TableView<Room>();
+
+        // Set an action for the "Login" button to validate the credentials.
+        organizerDashboardButton.setOnAction(event -> {
+            dashboardView.dashboardView(organizer, stage);
+        });
+
+        createEventButton.setOnAction(event -> {
+            Room selectedRoom = roomTable.getFocusModel().getFocusedItem();
+            createEvent(dashboardView, selectedRoom, organizer, stage);
+        });
+
+        final Label label = new Label("Address Book");
+        label.setFont(new Font("Arial", 20));
+
+        TableColumn<Room, String> eventNameColumn = new TableColumn<>("Room Name");
+        eventNameColumn.setMinWidth(100);
+        eventNameColumn.setCellValueFactory(event -> new ReadOnlyObjectWrapper(event.getValue().getRoomName()));
+
+        TableColumn<Room, String> eventDateColumn = new TableColumn<>("Room Available Times");
+        eventDateColumn.setMinWidth(100);
+        eventDateColumn.setCellValueFactory(event -> new ReadOnlyObjectWrapper(event.getValue().getAvailableTimes().toString()));
+
+        roomTable.setEditable(false);
+        roomTable.setItems(data);
+        roomTable.getColumns().addAll(Arrays.asList(eventNameColumn, eventDateColumn));
+        roomTable.getSelectionModel().setCellSelectionEnabled(false);
+
+        final VBox rootView = new VBox();
+        rootView.setSpacing(5);
+        rootView.setPadding(new Insets(10, 0, 0, 10));
+        rootView.getChildren().addAll(label, roomTable, createEventButton, organizerDashboardButton, resultLabel);
+
+        // Create the scene and set it in the stage.
+        Scene scene = new Scene(rootView, 400, 400);
+        stage.setScene(scene);
+
+        // Show the window.
+        stage.show();
+    }
+
     private void createRoom(RoomDatabase roomDatabase) {
         System.out.print("Please input Room Name: ");
         String roomName = scanner.nextLine();
@@ -467,7 +529,7 @@ public class DashboardController {
         roomDatabase.addRoom(room);
     }
 
-    public static List<Event> getEvents(Attendee attendee, List<Event> events) {
+    public static List<Event> getAttendingEvents(Attendee attendee, List<Event> events) {
         List<Event> attendingEvents = new ArrayList<>();
         for (Event event : events) {
             for (Attendee eventAttendee : event.getAttendees()) {
@@ -500,92 +562,123 @@ public class DashboardController {
             }
     }
 
-    public void viewYourEvents(Organizer organizer, EventDatabase eventDatabase) {
-        for (Event event : eventDatabase.getEvents()) {
-            if (event.getOrganizer() == organizer) {
-                /*
-                printUtils.printEvent(event);
-
-                 */
+    public void viewYourEvents(DashboardView dashboardView, Organizer organizer, Stage stage) {
+            List<Event> createdEvents = new ArrayList<>();
+            for (Event event : eventDatabase.getEvents()) {
+                if (event.getOrganizer().equals(organizer)) {
+                    createdEvents.add(event);
+                }
             }
-        }
+
+            if (createdEvents.size() > 0) {
+                stage.setTitle("Event List");
+
+                // Create a label to display the login result.
+                Label resultLabel = new Label();
+
+                // Create labels for username and password fields.
+                Button attendeeDashboardButton = new Button("Back to Dashboard");
+
+                ObservableList<Event> data =
+                        FXCollections.observableArrayList(createdEvents);
+
+                TableView<Event> eventTable = new TableView<Event>();
+
+                // Set an action for the "Login" button to validate the credentials.
+                attendeeDashboardButton.setOnAction(event -> {
+                    dashboardView.dashboardView(organizer, stage);
+                });
+
+                TableColumn<Event, String> eventNameColumn = new TableColumn<>("Event Name");
+                eventNameColumn.setMinWidth(100);
+                eventNameColumn.setCellValueFactory(event -> new ReadOnlyObjectWrapper(event.getValue().getName()));
+
+                TableColumn<Event, String> eventDateColumn = new TableColumn<>("Event Date");
+                eventDateColumn.setMinWidth(100);
+                eventDateColumn.setCellValueFactory(event -> new ReadOnlyObjectWrapper(event.getValue().getDate().toString()));
+
+                TableColumn<Event, String> eventPriceColumn = new TableColumn<>("Event Price");
+                eventPriceColumn.setMinWidth(100);
+                eventPriceColumn.setCellValueFactory(event -> new ReadOnlyObjectWrapper(event.getValue().getPrice().toString()));
+
+                TableColumn<Event, String> eventRoomColumn = new TableColumn<>("Event Room");
+                eventRoomColumn.setMinWidth(100);
+                eventRoomColumn.setCellValueFactory(event -> new ReadOnlyObjectWrapper(event.getValue().getRoom().getRoomName()));
+
+                TableColumn<Event, String> eventCategoryColumn = new TableColumn<>("Event Category");
+                eventCategoryColumn.setMinWidth(100);
+                eventCategoryColumn.setCellValueFactory(event -> new ReadOnlyObjectWrapper(event.getValue().getCategory().toString()));
+
+                eventTable.setEditable(false);
+                eventTable.setItems(data);
+                eventTable.getColumns().addAll(Arrays.asList(eventNameColumn, eventDateColumn, eventPriceColumn, eventRoomColumn, eventCategoryColumn));
+                eventTable.getSelectionModel().setCellSelectionEnabled(false);
+
+                final VBox rootView = new VBox();
+                rootView.setSpacing(5);
+                rootView.setPadding(new Insets(10, 0, 0, 10));
+                rootView.getChildren().addAll(eventTable, attendeeDashboardButton, resultLabel);
+
+                // Create the scene and set it in the stage.
+                Scene scene = new Scene(rootView, 400, 400);
+                stage.setScene(scene);
+
+                // Show the window.
+                stage.show();
+            }
     }
 
-    private void promptCreateEvent(Organizer organizer, List<Room> availableRooms, EventDatabase eventDatabase, CategoryDatabase categoryDatabase) {
-        System.out.println("Want to create a new event? y/n");
-        String selection = scanner.nextLine();
+    public void createEvent(DashboardView dashboardView, Room room, Organizer organizer, Stage stage) {
+        stage.setTitle("Event Creation Form");
 
-        switch (selection) {
-            case "y":
-                createEvent(organizer, availableRooms, eventDatabase, categoryDatabase);
-                break;
-            case "n":
-                break;
-            default:
-                System.out.println("Invalid selection, please try again!");
-                promptCreateEvent(organizer, availableRooms, eventDatabase, categoryDatabase);
-        }
-    }
+        Label eventNameLabel = new Label("Event Name:");
+        Label categoryLabel = new Label("Category:");
+        Label eventDateLabel = new Label("Event Date:");
 
-    private void createEvent(Organizer organizer, List<Room> availableRooms, EventDatabase eventDatabase, CategoryDatabase categoryDatabase) {
-        System.out.print("Please input Event Name: ");
-        String eventName = scanner.nextLine();
+        TextField eventNameField = new TextField();
 
-        Date date = askForEventDate();
+        final DatePicker eventDatePicker = new DatePicker();
+        eventDatePicker.setOnAction(new EventHandler() {
+            public void handle(javafx.event.Event t) {
+                LocalDate date = eventDatePicker.getValue();
+            }
+        });
 
-        Room room = askForRoom(availableRooms);
+        // Create text input fields for username and password.
+        final ComboBox<Category> categoryBox = new ComboBox<>();
+        categoryBox.getItems().setAll(categoryDatabase.getCategories());
 
-        Category category = askForCategory(categoryDatabase);
+        // Create a label to display the login result.
+        Label resultLabel = new Label();
 
-        Event event = new Event(eventName, date, organizer, room, category);
-        room.addEvent(event);
-        eventDatabase.addEvent(event);
-    }
+        // Create a "Login" button.
+        Button createButton = new Button("Create Event");
 
-    private Date askForEventDate() {
-        System.out.print("Please enter Event date (YYYY-MM-DD): ");
-        String date = scanner.nextLine();
-        try {
-            return Utils.DateUtils.asDate(LocalDate.parse(date));
-        }
-        catch (Exception e) {
-            System.out.println("Invalid Date of Birth!");
-            return askForEventDate();
-        }
-    }
+        // Set an action for the "Login" button to validate the credentials.
+        createButton.setOnAction(e -> {
+            if (eventNameField.getText().isEmpty()) {
+                resultLabel.setText("Event Name cannot be Empty");
+            } else if (categoryBox.getSelectionModel().getSelectedItem() == null) {
+                resultLabel.setText("Category cannot be Empty");
+            } else if (eventDatePicker.getValue() == null) {
+                resultLabel.setText("Event Date cannot be Empty");
+            } else {
+                Event event = new Event(eventNameField.getText(), eventDatePicker.getValue(), organizer, room, categoryBox.getSelectionModel().getSelectedItem());
+                room.addEvent(event);
+                eventDatabase.addEvent(event);
+                dashboardView.dashboardView(organizer, stage);
+            }
+        });
 
-    private Room askForRoom(List<Room> availableRooms) {
-        System.out.print("Please select Room number: ");
-        for (int i = 1; i < availableRooms.size() + 1; i++) {
-            System.out.println(i + ". " + availableRooms.get(i));
-        }
+        // Create a layout (VBox) to arrange the elements.
+        VBox rootView = new VBox(10);
+        rootView.getChildren().addAll(eventNameLabel, eventNameField, categoryLabel, categoryBox, eventDateLabel, eventDatePicker, createButton, resultLabel);
 
-        int roomNumber = scanner.nextInt();
+        // Create the scene and set it in the stage.
+        Scene scene = new Scene(rootView, 400, 400);
+        stage.setScene(scene);
 
-        if (roomNumber > 0 && roomNumber < availableRooms.size()) {
-            return availableRooms.get(roomNumber - 1);
-        }
-        else {
-            System.out.println("Invalid Room number!");
-            return askForRoom(availableRooms);
-        }
-    }
-
-    private Category askForCategory(CategoryDatabase categoryDatabase) {
-        System.out.print("Please select Category number: ");
-        for (int i = 1; i < categoryDatabase.getCategories().size(); i++) {
-            Category category = categoryDatabase.getCategories().get(i);
-            System.out.println(i + ". " + category.getName());
-        }
-
-        int selectedCategory = scanner.nextInt();
-
-        if (selectedCategory > 0 && selectedCategory < categoryDatabase.getCategories().size()) {
-            return categoryDatabase.getCategories().get(selectedCategory - 1);
-        }
-        else {
-            System.out.println("Invalid Category number!");
-            return askForCategory(categoryDatabase);
-        }
+        // Show the window.
+        stage.show();
     }
 }

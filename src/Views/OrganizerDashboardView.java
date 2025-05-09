@@ -24,9 +24,11 @@ public class OrganizerDashboardView {
 
             // Set an action for the "Login" button to validate the credentials.
             showAvailableRoomsButton.setOnAction(event -> {
+                dashboardController.viewAvailableRooms(dashboardView, organizer, stage);
             });
 
             showYourEventsButton.setOnAction(event -> {
+                dashboardController.viewYourEvents(dashboardView, organizer, stage);
             });
 
             updateUsernameButton.setOnAction(event -> {

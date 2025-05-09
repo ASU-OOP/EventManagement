@@ -3,13 +3,14 @@ package Models.MiscObjects;
 import Models.Users.Attendee;
 import Models.Users.Organizer;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Event {
     String name;
-    Date date;
+    LocalDate date;
     Double price = 100.0;
     List<Attendee> attendees = new ArrayList<>();
     Organizer organizer;
@@ -20,7 +21,7 @@ public class Event {
         return name;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -48,7 +49,7 @@ public class Event {
         this.name = name;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -80,7 +81,7 @@ public class Event {
         this.category = category;
     }
 
-    public Event(String name, Date date, Organizer organizer, Room room, Category category) {
+    public Event(String name, LocalDate date, Organizer organizer, Room room, Category category) {
         setName(name);
         setDate(date);
         setOrganizer(organizer);

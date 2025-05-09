@@ -22,6 +22,7 @@ public class RegisterView {
         Label userTypeLabel = new Label("User Type:");
         Label usernameLabel = new Label("Username:");
         Label passwordLabel = new Label("Password:");
+        Label birthdateLabel = new Label("Birthday:");
 
         // Create text input fields for username and password.
         final ComboBox<UserType> userTypeBox = new ComboBox<>();
@@ -32,7 +33,6 @@ public class RegisterView {
         birthdayDatePicker.setOnAction(new EventHandler() {
             public void handle(Event t) {
                 LocalDate date = birthdayDatePicker.getValue();
-                System.err.println("Selected date: " + date);
             }
         });
 
@@ -63,14 +63,11 @@ public class RegisterView {
 
         // Create a layout (VBox) to arrange the elements.
         VBox rootView = new VBox(10);
-        rootView.getChildren().addAll(userTypeLabel, userTypeBox, usernameLabel, usernameField, passwordLabel, passwordField, birthdayDatePicker, registerButton, resultLabel);
+        rootView.getChildren().addAll(userTypeLabel, userTypeBox, usernameLabel, usernameField, passwordLabel, passwordField, birthdateLabel, birthdayDatePicker, registerButton, resultLabel);
 
         // Create the scene and set it in the stage.
         Scene scene = new Scene(rootView, 400, 400);
         stage.setScene(scene);
-
-        // Set the title of the window.
-        stage.setTitle("Register Form App");
 
         // Show the window.
         stage.show();
