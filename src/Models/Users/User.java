@@ -51,7 +51,7 @@ public abstract class User implements Comparable<User>{
         this.userType = userType;
     }
 
-    boolean deactivateUser() {
+    public boolean deactivateUser() {
         setPassword(null);
         setActiveStatus(false);
         return true;

@@ -1,5 +1,6 @@
 package Views;
 
+import Models.Users.Admin;
 import Models.Users.User;
 import StaticResources.*;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import Controllers.LoginController;
 public class LoginView {
 
     LoginController loginController = new LoginController();
+    DashboardView dashboardView = new DashboardView();
 
     public void loginMenu(Stage stage) {
         stage.setTitle("Login Form");
@@ -41,6 +43,7 @@ public class LoginView {
 
             if (loggedInUser != null) {
                 resultLabel.setText("Login successful!");
+                dashboardView.dashboardView(loggedInUser, stage);
             } else {
                 resultLabel.setText("Login failed. Please check your credentials.");
             }
