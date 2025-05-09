@@ -33,10 +33,7 @@ public class PrintUtils {
     public void printAdmin(Admin admin){
         printUser(admin);
         System.out.println("Role: " + admin.getRole());
-        System.out.println("Working Hours: ");
-        for (Time workinghour : admin.getWorkingHours()) {
-            System.out.println("\t" + workinghour.toString());
-        }
+        System.out.println("Working Hours: " + admin.getWorkingHours());
     }
 
     public void printRoom(Room room){

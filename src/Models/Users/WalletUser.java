@@ -2,6 +2,7 @@ package Models.Users;
 
 import Models.MiscObjects.Wallet;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class WalletUser extends User {
@@ -16,7 +17,7 @@ public class WalletUser extends User {
         this.wallet.setBalance(balance);
     }
 
-    protected WalletUser(String username, String password, Date dateOfBirth, Double balance) {
+    protected WalletUser(String username, String password, LocalDate dateOfBirth, Double balance) {
         super(username, password, dateOfBirth);
 
         this.wallet = new Wallet(this, balance);

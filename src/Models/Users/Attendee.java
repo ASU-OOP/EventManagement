@@ -1,5 +1,6 @@
 package Models.Users;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Attendee extends WalletUser {
@@ -31,7 +32,7 @@ public class Attendee extends WalletUser {
         this.interests = interests;
     }
 
-    public Attendee(String username, String password, Date dateOfBirth, Double balance, String address, Gender gender, String interests) {
+    public Attendee(String username, String password, LocalDate dateOfBirth, Double balance, String address, Gender gender, String interests) {
         super(username, password, dateOfBirth, balance);
 
         setUserType(UserType.ATTENDEE);

@@ -3,10 +3,9 @@ module javafx {
     requires javafx.fxml;
     requires java.sql;
 
-    exports Views.UI;
-    opens Views.UI to javafx.graphics;
     exports Views;
     opens Views to javafx.graphics;
-    exports;
-    opens to
+
+    exports Application;
+    opens Application to javafx.graphics;
 }

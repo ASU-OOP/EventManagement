@@ -1,102 +1,63 @@
 package Views;
 
-import Models.Users.Admin;
-import Models.Users.Attendee;
-import Models.Users.Organizer;
 import Models.Users.User;
 import StaticResources.*;
-
-import java.util.Objects;
-import java.util.Scanner;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import Controllers.LoginController;
 
 public class LoginView {
 
-    public void loginScreen(Scanner scanner,
-                            AdminsDatabase adminsDatabase,
-                            AttendeesDatabase attendeesDatabase,
-                            OrganizersDatabase organizersDatabase,
-                            CategoryDatabase categoryDatabase,
-                            EventDatabase eventDatabase,
-                            RoomDatabase roomDatabase) {
-        DashboardView dashboardView = new DashboardView();
-        // Clean scanner because it causes issues sometimes when the last thing we read was an int and not a line lol
-        scanner.nextLine();
+    LoginController loginController = new LoginController();
 
-        User user = askForUsername(scanner,
-                adminsDatabase,
-                attendeesDatabase,
-                organizersDatabase);
-        Boolean authenticated = askForPassword(scanner, user);
+    public void loginMenu(Stage stage) {
+        stage.setTitle("Login Form");
 
-        if (authenticated) {
-            System.out.println("Logging in");
-            dashboardView.printDashboard(user,
-                    adminsDatabase,
-                    attendeesDatabase,
-                    organizersDatabase,
-                    categoryDatabase,
-                    roomDatabase,
-                    eventDatabase);
-        }
-        else {
-            System.out.println("Incorrect password");
-        }
-    }
+        // Create labels for username and password fields.
+        Label usernameLabel = new Label("Username:");
+        Label passwordLabel = new Label("Password:");
 
-    private User askForUsername(Scanner scanner,
-                                AdminsDatabase adminsDatabase,
-                                AttendeesDatabase attendeesDatabase,
-                                OrganizersDatabase organizersDatabase) {
+        // Create text input fields for username and password.
+        TextField usernameField = new TextField();
+        PasswordField passwordField = new PasswordField();
 
-        User user = null;
-        System.out.print("Please enter your username: ");
-        String username = scanner.nextLine();
-        boolean userExists = false;
+        // Create a label to display the login result.
+        Label resultLabel = new Label();
 
-        for (Admin admin: adminsDatabase.getAdmins()) {
-            if (Objects.equals(admin.username, username)) {
-                userExists = true;
-                user = admin;
-                break;
+        // Create a "Login" button.
+        Button loginButton = new Button("Login");
+
+        // Set an action for the "Login" button to validate the credentials.
+        loginButton.setOnAction(event -> {
+            String enteredUsername = usernameField.getText();
+            String enteredPassword = passwordField.getText();
+            User loggedInUser = loginController.validateCredentials(enteredUsername,
+                    enteredPassword);
+
+            if (loggedInUser != null) {
+                resultLabel.setText("Login successful!");
+            } else {
+                resultLabel.setText("Login failed. Please check your credentials.");
             }
-        }
+        });
 
-        for (Attendee attendee: attendeesDatabase.getAttendees()) {
-            if (Objects.equals(attendee.username, username)) {
-                userExists = true;
-                user = attendee;
-                break;
-            }
-        }
+        // Create a layout (VBox) to arrange the elements.
+        VBox root = new VBox(10);
+        root.getChildren().addAll(usernameLabel, usernameField, passwordLabel, passwordField, loginButton, resultLabel);
 
-        for (Organizer organizer: organizersDatabase.getOrganizers()) {
-            if (Objects.equals(organizer.username, username)) {
-                userExists = true;
-                user = organizer;
-                break;
-            }
-        }
+        // Create the scene and set it in the stage.
+        Scene scene = new Scene(root, 400, 400);
+        stage.setScene(scene);
 
-        if (!userExists) {
-            System.out.println("User doesn't exist, please try again!");
-            return askForUsername(scanner,
-                    adminsDatabase,
-                    attendeesDatabase,
-                    organizersDatabase);
-        }
+        // Set the title of the window.
+        stage.setTitle("Login Form App");
 
-        return user;
-    }
-
-    private Boolean askForPassword(Scanner scanner, User user) {
-        System.out.print("Please enter your password: ");
-        String password = scanner.nextLine();
-        if (Objects.equals(user.password, password)) {
-            System.out.println("Authenticated");
-            return true;
-        }
-        else {
-            return false;
-        }
+        // Show the window.
+        stage.show();
     }
 }

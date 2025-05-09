@@ -1,56 +1,45 @@
 package Views;
 
-import StaticResources.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
-import java.util.Scanner;
+import static Controllers.MainController.login;
+import static Controllers.MainController.register;
 
 public class MainView {
-    // Using Scanner for Getting Input from User
-    static Scanner scanner = new Scanner(System.in);
 
-    AdminsDatabase adminsDB = new AdminsDatabase();
-    AttendeesDatabase attendeesDB = new AttendeesDatabase();
-    CategoryDatabase categoryDB = new CategoryDatabase();
-    OrganizersDatabase organizersDB = new OrganizersDatabase();
-    RoomDatabase roomDB = new RoomDatabase();
-    EventDatabase eventDB = new EventDatabase(organizersDB, roomDB, categoryDB);
-    UsersDatabase usersDB = new UsersDatabase(adminsDB, attendeesDB, organizersDB);
+    public static void mainMenu(Stage stage) {
+        Label welcomeText = new Label("Welcome to the Event Management Software");
 
-    public static void welcome() {
-        System.out.println("Welcome to the Event Management Software");
-        System.out.println("Please type the number of your appropriate action");
-        printWelcomeActions();
-        parseWelcomeActions();
-    }
+        Button loginButton = new Button("Login");
+        Button registerButton = new Button("Register");
 
-    private static void printWelcomeActions() {
-        System.out.println("Please select an action:");
-        System.out.println("1: Register");
-        System.out.println("2: Login");
-    }
+        loginButton.setOnAction(_ -> login(stage));
 
-    private static void parseWelcomeActions() {
-        int action = scanner.nextInt();
+        registerButton.setOnAction(_ -> register(stage));
 
-        MainView mainView = new MainView();
-        if (action == 1) {
-            mainView.register(scanner);
-        } else if (action == 2) {
-            mainView.login(scanner);
-        } else {
-            System.out.println("Invalid Selection, please one or two");
-            printWelcomeActions();
-            parseWelcomeActions();
-        }
-    }
+        StackPane stackPane = new StackPane();
 
-    private void login(Scanner scanner) {
-        LoginView loginView = new LoginView();
-        loginView.loginScreen(scanner, adminsDB, attendeesDB, organizersDB, categoryDB, eventDB, roomDB);
-    }
+        GridPane gridpane = new GridPane();
+        gridpane.add(loginButton, 0, 0); // column=0 row=0
+        GridPane.setMargin(loginButton, new Insets(17));
+        gridpane.add(registerButton, 0, 1); // column=0 row=1
+        GridPane.setMargin(registerButton, new Insets(10));
 
-    private void register(Scanner scanner) {
-        RegisterView registerView = new RegisterView();
-        registerView.registerScreen(scanner, adminsDB, attendeesDB, organizersDB);
+        gridpane.setAlignment(Pos.CENTER);
+        stackPane.getChildren().add(welcomeText);
+        StackPane.setAlignment(welcomeText, Pos.TOP_LEFT);
+        stackPane.getChildren().add(gridpane);
+        StackPane.setAlignment(gridpane, Pos.CENTER);
+
+        Scene scene = new Scene(stackPane, 400, 400);
+        stage.setScene(scene);
+        stage.show();
     }
 }

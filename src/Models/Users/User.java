@@ -1,12 +1,13 @@
 package Models.Users;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 // This class is the template for all other User classes
 public abstract class User implements Comparable<User>{
     public String username = "";
     public String password = "";
-    Date dateOfBirth;
+    LocalDate dateOfBirth;
     boolean active = false;
     UserType userType;
 
@@ -18,7 +19,7 @@ public abstract class User implements Comparable<User>{
         return password;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -38,7 +39,7 @@ public abstract class User implements Comparable<User>{
         this.password = password;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -56,7 +57,7 @@ public abstract class User implements Comparable<User>{
         return true;
     }
 
-    protected User(String username, String password, Date dateOfBirth) {
+    protected User(String username, String password, LocalDate dateOfBirth) {
         setUsername(username);
         setPassword(password);
         setDateOfBirth(dateOfBirth);
