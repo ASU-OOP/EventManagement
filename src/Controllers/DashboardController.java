@@ -59,9 +59,6 @@ public class DashboardController {
             dashboardView.dashboardView(admin, stage);
         });
 
-        final Label label = new Label("Address Book");
-        label.setFont(new Font("Arial", 20));
-
         TableColumn<Attendee, String> usernameColumn = new TableColumn<>("User Name");
         usernameColumn.setMinWidth(100);
         usernameColumn.setCellValueFactory(attendee -> new ReadOnlyObjectWrapper(attendee.getValue().getUsername()));
@@ -98,7 +95,7 @@ public class DashboardController {
         final VBox rootView = new VBox();
         rootView.setSpacing(5);
         rootView.setPadding(new Insets(10, 0, 0, 10));
-        rootView.getChildren().addAll(label, attendeeTable, adminDashboardButton);
+        rootView.getChildren().addAll(attendeeTable, adminDashboardButton);
 
         // Create the scene and set it in the stage.
         Scene scene = new Scene(rootView, 400, 400);
@@ -126,9 +123,6 @@ public class DashboardController {
             dashboardView.dashboardView(admin, stage);
         });
 
-        final Label label = new Label("Address Book");
-        label.setFont(new Font("Arial", 20));
-
         TableColumn<Room, String> roomNameColumn = new TableColumn<>("Room Name");
         roomNameColumn.setMinWidth(100);
         roomNameColumn.setCellValueFactory(room -> new ReadOnlyObjectWrapper(room.getValue().getRoomName()));
@@ -149,7 +143,7 @@ public class DashboardController {
         final VBox rootView = new VBox();
         rootView.setSpacing(5);
         rootView.setPadding(new Insets(10, 0, 0, 10));
-        rootView.getChildren().addAll(label, roomTable, createRoomButton, adminDashboardButton);
+        rootView.getChildren().addAll(roomTable, createRoomButton, adminDashboardButton);
 
         // Create the scene and set it in the stage.
         Scene scene = new Scene(rootView, 400, 400);
